@@ -95,7 +95,7 @@ int main(int argc, char* argv[]) {
             cmd += argv[4];
             cmd.run();
 #ifndef  FS_DEBUG
-            Command("clear").run();
+            clear(now);
 #endif //  FS_DEBUG
             getStudnetQuestionFileName(fname, argv);
             if (fileExists(fname)) {
