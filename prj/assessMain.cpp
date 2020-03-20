@@ -10,73 +10,29 @@
 #include "SubVals.h"
 #include "Date.h"
 #include "User.h"
+#include "colors.h"
+
+#define  QA_VERSION "0.8"   
+#define QA_DATE "2020-03-20"
 
 using namespace std;
 const int configFile = 0;
 const int questionFile = 1;
 const int allFiles = 2;
 
-void prn(string val) {
-#ifdef FS_DEBUG
-   cout << val << endl;
-#endif // FS_DEBUG
-}
+
+void prn(string val);
+
 bool getAssignmentValues(SubVals& SV, string fname);
 
-void getFileName(char* fname, char* argv[], int fileType) {
-#ifdef  FS_DEBUG
-   strcpy(fname, "/home/fardad.soleimanloo/getfiles");
-#else
-   strcpy(fname, argv[0]);
-#endif //  FS_DEBUG
-   for (int i = strlen(fname); i > 0; i--) {
-      if (fname[i] == '/') {
-         fname[i + 1] = 0;
-         i = 0;
-      }
-   }
-   strcat(fname, "submitter_files/");
-   strcat(fname, argv[1]);
-   strcat(fname, "/");
-   strcat(fname, argv[3]);
-   strcat(fname, "/");
-   strcat(fname, argv[2]);
-   switch (fileType) {
-   case configFile:
-      strcat(fname, "/");
-      strcat(fname, argv[4]);
-      strcat(fname, ".cfg");
-      break;
-   case questionFile:
-      strcat(fname, "/");
-      strcat(fname, argv[4]);
-      strcat(fname, "/q");
-      strcat(fname, argv[4]);
-      strcat(fname, ".cpp");
-      break;
-   case allFiles:
-      strcat(fname, "/");
-      strcat(fname, argv[4]);
-      strcat(fname, "/q*.*");
-      break;
-   }
-}
-void getStudnetQuestionFileName(char* fname, char* argv[]) {
-   strcpy(fname, theUser.homedir());
-   strcat(fname,"___");
-   strcat(fname, argv[1]);
-   strcat(fname, argv[3]);
-   strcat(fname, "___/");
-   strcat(fname, argv[4]);
-   strcat(fname, "/q");
-   strcat(fname, argv[4]);
-   strcat(fname, ".cpp");
-}
-bool fileExists(const char* fname) {
-   return ifstream(fname).good();
-}
+void getFileName(char* fname, char* argv[], int fileType);
+
+void getStudnetQuestionFileName(char* fname, char* argv[]);
+
+bool fileExists(const char* fname);
+
 /*
-0: / home / fardad.soleimanloo / getfiles
+0: /home/fardad.soleimanloo/getfiles
 1 : 244
 2 : NBB
 3 : exam
@@ -89,6 +45,11 @@ int main(int argc, char* argv[]) {
    putenv(lc_all);
    putenv(lc_col);
 #endif
+   Date now;
+   cout << col_grey << "quickAssess (V" << QA_VERSION << ")" << endl;
+   cout << "by Fardad S. (Last update: " << QA_DATE << ")" << endl
+      << "===============================================================" << col_end << endl <<
+      col_white << "System date and time: " << now << col_end << endl << endl;
 
 #ifdef FS_DEBUG
    cout << "Debugging------------------------------------" << endl;
@@ -101,7 +62,6 @@ int main(int argc, char* argv[]) {
    }
    else {
       SubVals cfgVals;
-      Date now;
       Date cfgDate;
       std::stringstream ssDate;
       char fname[1024];
@@ -189,3 +149,63 @@ bool getAssignmentValues(SubVals& SV, string fname) {
 3: exam
 4: 12
 */
+
+void prn(string val) {
+#ifdef FS_DEBUG
+   cout << val << endl;
+#endif // FS_DEBUG
+}
+bool getAssignmentValues(SubVals& SV, string fname);
+
+void getFileName(char* fname, char* argv[], int fileType) {
+#ifdef  FS_DEBUG
+   strcpy(fname, "/home/fardad.soleimanloo/getfiles");
+#else
+   strcpy(fname, argv[0]);
+#endif //  FS_DEBUG
+   for (int i = strlen(fname); i > 0; i--) {
+      if (fname[i] == '/') {
+         fname[i + 1] = 0;
+         i = 0;
+      }
+   }
+   strcat(fname, "submitter_files/");
+   strcat(fname, argv[1]);
+   strcat(fname, "/");
+   strcat(fname, argv[3]);
+   strcat(fname, "/");
+   strcat(fname, argv[2]);
+   switch (fileType) {
+   case configFile:
+      strcat(fname, "/");
+      strcat(fname, argv[4]);
+      strcat(fname, ".cfg");
+      break;
+   case questionFile:
+      strcat(fname, "/");
+      strcat(fname, argv[4]);
+      strcat(fname, "/q");
+      strcat(fname, argv[4]);
+      strcat(fname, ".cpp");
+      break;
+   case allFiles:
+      strcat(fname, "/");
+      strcat(fname, argv[4]);
+      strcat(fname, "/q*.*");
+      break;
+   }
+}
+void getStudnetQuestionFileName(char* fname, char* argv[]) {
+   strcpy(fname, theUser.homedir());
+   strcat(fname, "___");
+   strcat(fname, argv[1]);
+   strcat(fname, argv[3]);
+   strcat(fname, "___/");
+   strcat(fname, argv[4]);
+   strcat(fname, "/q");
+   strcat(fname, argv[4]);
+   strcat(fname, ".cpp");
+}
+bool fileExists(const char* fname) {
+   return ifstream(fname).good();
+}
