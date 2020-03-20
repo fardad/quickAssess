@@ -20,6 +20,7 @@ const int configFile = 0;
 const int questionFile = 1;
 const int allFiles = 2;
 
+void clear(Date& D);
 
 void prn(string val);
 
@@ -46,10 +47,7 @@ int main(int argc, char* argv[]) {
    putenv(lc_col);
 #endif
    Date now;
-   cout << col_grey << "quickAssess (V" << QA_VERSION << ")" << endl;
-   cout << "by Fardad S. (Last update: " << QA_DATE << ")" << endl
-      << "===============================================================" << col_end << endl <<
-      col_white << "System date and time: " << now << col_end << endl << endl;
+
 
 #ifdef FS_DEBUG
    cout << "Debugging------------------------------------" << endl;
@@ -149,7 +147,13 @@ bool getAssignmentValues(SubVals& SV, string fname) {
 3: exam
 4: 12
 */
-
+void clear(Date& D) {
+   Command("clear").run();
+   cout << col_grey << "quickAssess (V" << QA_VERSION << ")" << endl;
+   cout << "by Fardad S. (Last update: " << QA_DATE << ")" << endl
+      << "===============================================================" << col_end << endl <<
+      col_white << "System date and time: " << D << col_end << endl << endl;
+}
 void prn(string val) {
 #ifdef FS_DEBUG
    cout << val << endl;
