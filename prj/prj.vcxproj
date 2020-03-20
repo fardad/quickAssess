@@ -156,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="activate" />
+    <None Include="install" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

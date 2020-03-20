@@ -61,5 +61,8 @@
     <None Include="activate">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="install">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
