@@ -1,0 +1,29 @@
+#!/bin/ksh
+clear
+if [ $# != 4 ]; then
+   echo "Source ~profName.profLastname/activate [Sub#] [Sct] [Assess] [Q#]<ENTER>"
+   echo "   [Sub#]: Subject number like \"244\""
+   echo "   [Sct]: Section like \"NAB\" or \"NEE\""
+   echo "   [Assess]: Assessment Name like \"exam\" or \"quiz\""
+   echo "   [Q#]: Question number like \"3\" or \"11\""
+else
+   
+   if [ $0 != -bash ]; then
+      echo "Your forgot the \"Source\" at the beginning of the submission command"
+   else
+      ~fardad.soleimanloo/getfiles $1 $2 $3 $4
+      if [ $? == 0 ]; then
+         cd ~/___$1$3___/$4
+         echo ""
+         echo "Open q$4.cpp with a text editor and start $3-$4"
+         echo "BY FOLLOWING THE INSTRUCTIONS in q$4.cpp"
+         echo "After you are done with this $3 question,"
+         echo "issue the following command to submit your work:"
+         echo "submit <ENTER>"
+         alias submit="~fardad.soleimanloo/submit $1/$3/$2/$4"
+         #echo "~fardad.soleimanloo/submit $1/$3/$2/$4"
+      fi
+   fi
+fi
+
+
