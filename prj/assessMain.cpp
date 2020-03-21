@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
                cp += "/.";
                if (cp.run()) {
                   cout << "Could not fetch the files for the " << argv[3] << "." << endl;
-                  cout << "Fist make sure these values are not misspelled: " << endl;
+                  cout << "First make sure these values are not misspelled: " << endl;
                   cout << argv[1] << " " << argv[2] << " " << argv[1] << " " << argv[1] << endl;
                   cout << "If the above values are correct, reprot this to your professor." << endl;
                   //ok = false;
