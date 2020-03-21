@@ -1,7 +1,7 @@
 #!/bin/ksh
 clear
 if [ $# != 4 ]; then
-   echo "Source ~profName.profLastname/activate [Sub#] [Sct] [Assess] [Q#]<ENTER>"
+   echo "source ~profName.profLastname/activate [Sub#] [Sct] [Assess] [Q#]<ENTER>"
    echo "   [Sub#]: Subject number like \"244\""
    echo "   [Sct]: Section like \"NAB\" or \"NEE\""
    echo "   [Assess]: Assessment Name like \"test\" or \"quiz\""
@@ -9,7 +9,7 @@ if [ $# != 4 ]; then
 else
    
    if [ $0 != -bash ]; then
-      echo "Your forgot the \"Source\" at the beginning of the submission command"
+      echo "You forgot the \"source\" at the beginning of the submission command"
    else
       ~<uid>/getfiles $1 $2 $3 $4
       if [ $? == 0 ]; then
