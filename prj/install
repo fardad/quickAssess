@@ -1,6 +1,6 @@
 #!/bin/ksh
 
-echo "Please do not install this untill this message is removed, ENTER (n) to exit:"
+echo "Please do not install this untill this messege is removed, ENTER (n) to exit:"
 #echo "This will give 711 permission to your home directory, are you sure?(Y/N)"
 read resp
 if [ $resp == Y ] || [ $resp == y ]; then
@@ -11,7 +11,8 @@ if [ $resp == Y ] || [ $resp == y ]; then
   chmod 711 ~/submit
   chmod 755 ~/activate
   echo "Permissions set"
-  sed -i "s|<uid>|`whoami`|g" "~/activate"
+  cd
+  sed -i "s|<uid>|`whoami`|g" "activate"
   echo "User id set to `whoami` in activate"
   echo "installation complete"
 else
