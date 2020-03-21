@@ -2,7 +2,7 @@
 #define SICT_COLORS_H_
 #include "debug.h"
 
-#ifndef FS_DEBUG
+#ifndef _MSC_VER
 const char col_grey[] = "\e[38;5;8m";
 const char col_red[] = "\e[38;5;9m";
 const char col_green[] = "\e[38;5;10m";

@@ -12,8 +12,8 @@
 #include "User.h"
 #include "colors.h"
 
-#define  QA_VERSION "0.8"   
-#define QA_DATE "2020-03-20"
+#define  QA_VERSION "0.8.1 (return status)"   
+#define QA_DATE "2020-03-21"
 
 using namespace std;
 const int configFile = 0;
@@ -52,11 +52,12 @@ int main(int argc, char* argv[]) {
 #ifdef FS_DEBUG
    cout << "Debugging------------------------------------" << endl;
 #endif // FS_DEBUG
-
-   bool ok = true;
+   int ret = 0;
+   //bool ok = true;
    if (argc != 5) {
       cout << "Bad getfiles arguments, reprot this to your professor." << endl;
-      ok = false;
+     // ok = false;
+      ret = 1;
    }
    else {
       SubVals cfgVals;
@@ -64,27 +65,30 @@ int main(int argc, char* argv[]) {
       std::stringstream ssDate;
       char fname[1024];
       getFileName(fname, argv, configFile);
-      if (ok && getAssignmentValues(cfgVals, fname)) {
+      if (ret == 0 && getAssignmentValues(cfgVals, fname)) {
          if (!cfgVals.exist("publish_date")) {
-            ok = false;
+            //ok = false;
+            ret = 2;
             cout << "Publish date is missing, report this to your professor!" << endl;
          }
          prn("Publish date");
-         if (ok) {
+         if (ret == 0) {
             ssDate << cfgVals["publish_date"][0];
             cfgDate.read(ssDate);
             if (cfgDate.bad()) {
                cout << "Bad publish date format in config file." << endl
                   << "Please report this to your professor!" << endl;
-               ok = false;
+               //ok = false;
+               ret = 3;
             }
-            if (ok && now < cfgDate) {
+            if (ret == 0 && now < cfgDate) {
                cout << "The " << argv[3] << " is not open yet, the time is now " << now << endl
                   << "The " << argv[3] << " will open at " << cfgDate << endl;
-               ok = false;
+               //ok = false;
+               ret = 4;
             }
          }
-         if (ok) {
+         if (ret == 0) {
             Command cmd("mkdir ~/");
             cmd += "___";
             cmd += argv[1];
@@ -114,7 +118,8 @@ int main(int argc, char* argv[]) {
                   cout << "Fist make sure these values are not misspelled: " << endl;
                   cout << argv[1] << " " << argv[2] << " " << argv[1] << " " << argv[1] << endl;
                   cout << "If the above values are correct, reprot this to your professor." << endl;
-                  ok = false;
+                  //ok = false;
+                  ret = 5;
                }
             }
          }
@@ -122,12 +127,13 @@ int main(int argc, char* argv[]) {
       else {
          cout << "Could not read values from cofiguration file: " << fname << endl;
          cout << "Report this to your professor" << endl;
+         ret = 6;
       }
    }
-   return int(!ok);
+   return ret;
 }
 bool getAssignmentValues(SubVals& SV, string fname) {
-   bool ok = false;
+   bool ok = false; 
    Vals V('|');
    ifstream file(fname.c_str());
    while (file) {
