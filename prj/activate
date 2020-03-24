@@ -1,14 +1,13 @@
-#!/bin/ksh
+#!/usr/bin/env bash
 clear
 if [ $# != 4 ]; then
-   echo "source ~profName.profLastname/activate [Sub#] [Sct] [Assess] [Q#]<ENTER>"
-   echo "   [Sub#]: Subject number like \"244\""
-   echo "   [Sct]: Section like \"NAB\" or \"NEE\""
+   echo "source ~<uid>/activate [Sub#] [Sct] [Assess] [Q#]<ENTER>"
+   echo "   [Sub#]: Subject number like \"200\""
+   echo "   [Sct]: Section like \"NAA\" or \"NBB\""
    echo "   [Assess]: Assessment Name like \"test\" or \"quiz\""
    echo "   [Q#]: Question number like \"3\" or \"11\""
 else
-   
-   if [ $0 != -bash ]; then
+   if [ $0 == $BASH_SOURCE ]; then
       echo "You forgot the \"source\" at the beginning of the submission command"
    else
       ~<uid>/getfiles $1 $2 $3 $4
@@ -28,5 +27,4 @@ else
       fi
    fi
 fi
-
 
